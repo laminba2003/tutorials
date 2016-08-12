@@ -94,4 +94,5 @@ public class UserService extends BaseService {
 		        Response.status(Response.Status.NOT_FOUND).entity("User not found for id : " + id).build() : 
 		        Response.status(Response.Status.OK).entity("User deleted for id : " + id).build();
 	}
+	
 }
