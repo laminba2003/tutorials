@@ -60,8 +60,9 @@ public class UserService extends BaseService {
 		        Response.ok(user).build();
 	}
 	
+	@Path("{id}")
 	@PUT
-	public Response updateUser(User user) {
+	public Response updateUser(@PathParam("id") Long id,User user) {
 		EntityManager em = getEntityManager();
 		int update = 0;
 		try {
@@ -69,7 +70,8 @@ public class UserService extends BaseService {
 			update = em.createQuery("update from User u set u.firstName = :firstName, u.lastName = :lastName where u.id = :id")
 			.setParameter("firstName", user.getFirstName()).
 			setParameter("lastName", user.getLastName()).
-			setParameter("id", user.getId()).executeUpdate();
+			setParameter("id", id).executeUpdate();
+			user.setId(id);
 			em.getTransaction().commit();
 		}catch(Exception e){}
 		em.close();
